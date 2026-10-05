@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidade — PraticaTech | praticatech.tec.br</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primaria: #0066ff;
+            --destaque: #a3e635;
+            --fundo-escuro: #030a16;
+            --texto-claro: #f3f4f6;
+            --texto-cinza: #9ca3af;
+        }
+        body {
+            background-color: var(--fundo-escuro);
+            color: var(--texto-claro);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.8;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: rgba(3, 10, 22, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 102, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-img {
+            height: 42px;
+            width: 42px;
+            border-radius: 12px;
+            background: #0066ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .logo-texto {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: var(--texto-cinza);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.ativo { color: var(--destaque); }
+        .nav-acoes { display: flex; gap: 12px; }
+        .btn-entrar {
+            color: var(--texto-claro);
+            background: transparent;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .btn-cadastrar {
+            background: linear-gradient(135deg, var(--primaria), var(--destaque));
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .conteudo {
+            padding: 60px 6%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .cabecalho-pagina {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        /* ✅ MASCOTE AUMENTADO */
+        .mascote-pequeno {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            border-radius: 24%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(163,230,53,0.35));
+        }
+        .titulo-principal {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+        }
+        .destaque { color: var(--destaque); }
+        .intro {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--texto-cinza);
+            margin-bottom: 50px;
+        }
+        .bloco {
+            background-color: rgba(10, 20, 40, 0.5);
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+        .bloco:hover {
+            border-color: var(--destaque);
+            transform: translateY(-3px);
+        }
+        .bloco h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .bloco p { color: var(--texto-cinza); }
+        .lista { margin-top: 15px; padding-left: 20px; }
+        .lista li {
+            color: var(--texto-cinza);
+            margin-bottom: 8px;
+        }
+        .chamada {
+            text-align: center;
+            margin-top: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0,102,255,0.15), rgba(163,230,53,0.15));
+            border-radius: 16px;
+        }
+        .botao-principal {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, var(--primaria), var(--destaque));
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: transform 0.3s;
+        }
+        .botao-principal:hover { transform: scale(1.05); }
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #112d5d;
+            color: var(--texto-cinza);
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+        .footer-dominio {
+            color: var(--destaque);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(163, 230, 53, 0.5);
+        }
+        .footer-data {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: rgba(156, 163, 175, 0.6);
+        }
+        /* ✅ HERO AJUSTADO — mais espaço pro mascote */
+        .hero-comunidade {
+            display: grid;
+            grid-template-columns: minmax(320px, 1fr) minmax(0, 1.3fr);
+            gap: 45px;
+            align-items: center;
+            margin-bottom: 55px;
+        }
+        .hero-mascote {
+            text-align: center;
+            position: relative;
+        }
+        .hero-mascote::after {
+            content: "Vem com a gente! 🚀";
+            display: block;
+            margin-top: -8px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--destaque);
+        }
+        .hero-texto {
+            text-align: left;
+        }
+        .slogan {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.7rem, 4vw, 3rem);
+            line-height: 1.15;
+            margin-bottom: 18px;
+        }
+        .slogan strong { color: var(--destaque); }
+        .sub-slogan {
+            font-size: 1.15rem;
+            color: var(--texto-cinza);
+            max-width: 720px;
+        }
+        .frase-impacto {
+            margin-top: 24px;
+            padding: 18px 22px;
+            border-left: 4px solid var(--destaque);
+            background: rgba(163,230,53,0.08);
+            border-radius: 0 14px 14px 0;
+            font-size: 1.15rem;
+            font-weight: 800;
+        }
+        .grade-blocos {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 25px;
+        }
+        .grade-blocos .bloco {
+            margin-bottom: 0;
+        }
+        .bloco.destaque-bloco {
+            border-color: rgba(163,230,53,0.45);
+            background: linear-gradient(135deg, rgba(0,102,255,0.12), rgba(163,230,53,0.08));
+        }
+        .jornada {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-top: 22px;
+        }
+        .jornada-item {
+            text-align: center;
+            padding: 14px 7px;
+            border: 1px solid rgba(163,230,53,0.18);
+            border-radius: 12px;
+            background: rgba(3,10,22,0.5);
+            font-weight: 700;
+            font-size: 0.82rem;
+        }
+        .jornada-item span {
+            display: block;
+            font-size: 1.35rem;
+            margin-bottom: 5px;
+        }
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px 20px;
+            margin-top: 15px;
+        }
+        .valor {
+            color: var(--texto-cinza);
+        }
+        .valor strong {
+            color: var(--texto-claro);
+            display: block;
+            margin-bottom: 2px;
+        }
+        .diferenca-lista li::marker {
+            color: var(--destaque);
+        }
+        .compromisso {
+            margin-top: 30px;
+            padding: 28px;
+            border-radius: 16px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0,102,255,0.12), rgba(163,230,53,0.12));
+            border: 1px solid rgba(163,230,53,0.35);
+        }
+        .compromisso h2 {
+            color: var(--destaque);
+            margin-bottom: 10px;
+        }
+        .objetivo-final {
+            text-align: center;
+            margin-top: 30px;
+            padding: 34px 25px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(163,230,53,0.13), rgba(0,102,255,0.14));
+            border: 1px solid rgba(163,230,53,0.35);
+        }
+        .objetivo-final h2 {
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 10px;
+        }
+        .objetivo-final .grande {
+            font-size: clamp(1.5rem, 3vw, 2.3rem);
+            font-weight: 900;
+            color: var(--destaque);
+            margin: 8px 0 12px;
+        }
+        @media (max-width: 800px) {
+            .hero-comunidade,
+            .grade-blocos {
+                grid-template-columns: 1fr;
+            }
+            .hero-texto {
+                text-align: center;
+            }
+            .jornada {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .valores-grid {
+                grid-template-columns: 1fr;
+            }
+            .mascote-pequeno {
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+        <div class="logo-img">P</div>
+        <span class="logo-texto">PraticaTech</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="comunidade.html" class="ativo">Comunidade</a></li>
+        <li><a href="canais.html">Canais</a></li>
+        <li><a href="agenda.html">Agenda</a></li>
+        <li><a href="encontros.html">Encontros</a></li>
+        <li><a href="entretenimento.html">Entretenimento</a></li>
+        <li><a href="pratic.html">🐙 Pratic</a></li>
+    </ul>
+    <div class="nav-acoes">
+        <a href="https://wa.me/5517997749639" class="btn-entrar" target="_blank">Entrar</a>
+        <a href="https://wa.me/5517997749639" class="btn-cadastrar" target="_blank">Participar</a>
+    </div>
+</nav>
+<main class="conteudo">
+    <section class="hero-comunidade">
+        <div class="hero-mascote">
+            <img src="mascote_comunidade.png" alt="Mascote da PraticaTech convidando para a comunidade" class="mascote-pequeno">
+        </div>
+        <div class="hero-texto">
+            <h1 class="slogan">CHEGA DE <strong>BLÁ-BLÁ-BLÁ.</strong><br>VAMOS FAZER!</h1>
+            <p class="sub-slogan">
+                <strong>PraticaTech — Comunidade de TI</strong><br>
+                Da sala de aula para a prática. Um espaço para aprender de verdade,
+                colocar a mão na massa, compartilhar experiências e se preparar para oportunidades.
+            </p>
+            <div class="frase-impacto">
+                Você não precisa saber tudo para começar.
+                Precisa começar, praticar e saber que pode pedir ajuda quando precisar.
+            </div>
+        </div>
+    </section>
+    <section class="grade-blocos">
+        <section class="bloco destaque-bloco">
+            <h2>🎯 Nosso Propósito</h2>
+            <p><strong>Transformar conhecimento em capacidade de fazer.</strong></p>
+            <p>
+                A PraticaTech existe para aproximar pessoas da prática real de tecnologia,
+                criando experiências em que elas possam aprender, fazer, errar, pedir ajuda,
+                resolver problemas e construir algo de verdade.
+            </p>
+            <p style="margin-top:12px;">
+                Queremos transformar o <em>“eu estudei, mas não consigo fazer sozinho”</em>
+                em <strong>“eu ainda não sei tudo, mas sei começar, praticar, buscar ajuda e aprender.”</strong>
+            </p>
+        </section>
+        <section class="bloco">
+            <h2>🚀 Nossa Missão</h2>
+            <p>
+                Criar uma comunidade de aprendizagem prática em tecnologia, conectando
+                pessoas que querem aprender com pessoas dispostas a compartilhar conhecimento,
+                experiências, projetos e oportunidades de prática.
+            </p>
+            <p style="margin-top:12px;">
+                <strong>Quem quer aprender.</strong> Quem quer compartilhar.
+                Quem tem experiências, projetos ou desafios reais para trazer para a comunidade.
+            </p>
+        </section>
+        <section class="bloco">
+            <h2>🔭 Nossa Visão</h2>
+            <p>
+                Ser uma comunidade reconhecida por transformar aprendizado em experiência prática
+                e preparar pessoas para novas oportunidades no mercado de tecnologia.
+            </p>
+            <p style="margin-top:12px;">
+                Queremos que, diante de uma oportunidade, a pessoa não pense apenas
+                <em>“eu queria saber fazer isso”</em>, mas possa pensar:
+                <strong>“eu já pratiquei isso.”</strong>
+            </p>
+        </section>
+        <section class="bloco">
+            <h2>💡 Para quem é</h2>
+            <ul class="lista">
+                <li>Quem quer aprender tecnologia do zero.</li>
+                <li>Quem já estudou, mas tem dificuldade para colocar em prática.</li>
+                <li>Quem quer aprender novas ferramentas e tecnologias.</li>
+                <li>Estudantes que precisam de projetos e experiências.</li>
+                <li>Profissionais que querem compartilhar o que sabem.</li>
+                <li>Empreendedores e empresas com problemas reais para transformar em desafios.</li>
+            </ul>
+        </section>
+    </section>
+    <section class="bloco" style="margin-top:25px;">
+        <h2>🧭 Nossa Jornada</h2>
+        <p>
+            Na PraticaTech, aprender não termina quando a explicação acaba.
+            A jornada continua até a pessoa experimentar, testar e entender como avançar.
+        </p>
+        <div class="jornada">
+            <div class="jornada-item"><span>💡</span>APRENDER</div>
+            <div class="jornada-item"><span>🛠️</span>PRATICAR</div>
+            <div class="jornada-item"><span>⚠️</span>ERRAR</div>
+            <div class="jornada-item"><span>💬</span>PEDIR AJUDA</div>
+            <div class="jornada-item"><span>🔧</span>RESOLVER</div>
+            <div class="jornada-item"><span>🤝</span>COMPARTILHAR</div>
+            <div class="jornada-item"><span>🔗</span>CONECTAR</div>
+        </div>
+    </section>
+    <section class="bloco">
+        <h2>🧡 Nossos Valores</h2>
+        <div class="valores-grid">
+            <div class="valor"><strong>🛠️ Prática</strong>Conhecimento ganha valor quando é colocado em ação.</div>
+            <div class="valor"><strong>🤝 Colaboração</strong>Quem sabe pode ensinar. Quem aprende pode perguntar.</div>
+            <div class="valor"><strong>❤️ Respeito</strong>Ninguém é diminuído por estar começando.</div>
+            <div class="valor"><strong>💪 Autonomia</strong>Desenvolver confiança para tentar, pesquisar e resolver.</div>
+            <div class="valor"><strong>📚 Aprendizado contínuo</strong>Tecnologia muda. Continuamos aprendendo.</div>
+            <div class="valor"><strong>🎁 Generosidade com o conhecimento</strong>Compartilhar fortalece a comunidade.</div>
+            <div class="valor"><strong>⚡ Ação</strong>Menos promessa, mais execução.</div>
+            <div class="valor"><strong>🔗 Conexão</strong>Criar pontes entre pessoas, projetos, empresas e oportunidades.</div>
+        </div>
+    </section>
+    <section class="grade-blocos">
+        <section class="bloco">
+            <h2>🔥 O que nos diferencia?</h2>
+            <p>
+                Não somos apenas mais uma comunidade de tecnologia. Aqui, a palestra pode ser
+                o começo — não o fim.
+            </p>
+            <ul class="lista diferenca-lista">
+                <li>Aprender fazendo.</li>
+                <li>Projetos e desafios práticos.</li>
+                <li>Espaço para perguntas e erros.</li>
+                <li>Material e próximos passos claros.</li>
+                <li>Conexões que podem evoluir para colaboração.</li>
+                <li>Experiências que podem virar portfólio.</li>
+            </ul>
+        </section>
+        <section class="bloco">
+            <h2>📣 Nosso Compromisso</h2>
+            <p>
+                <strong>Na PraticaTech, você não fica sozinho no “agora faça você”.</strong>
+            </p>
+            <p style="margin-top:12px;">
+                Se der erro, vamos investigar. Se você não souber onde clicar, mostramos.
+                Se precisar perguntar, pergunte.
+            </p>
+            <p style="margin-top:12px;">
+                Queremos que você saia de cada experiência com algo além de informação:
+                uma habilidade praticada, um problema resolvido, um projeto iniciado,
+                uma experiência vivida ou simplesmente a confiança de dizer:
+                <strong>“Eu consegui!”</strong>
+            </p>
+        </section>
+    </section>
+    <section class="objetivo-final">
+        <h2>🎯 Nosso Grande Objetivo</h2>
+        <div class="grande">PREPARAR PARA A OPORTUNIDADE.</div>
+        <p>
+            Não prometemos emprego. Construímos preparação.
+            Queremos ajudar você a construir um <strong>portfólio de experiências</strong>:
+            projetos, prática, conhecimento, conexões, problemas resolvidos e histórias
+            reais para contar.
+        </p>
+        <p style="margin-top:14px;">
+            <strong>Porque estar preparado não é saber tudo.</strong><br>
+            É ter coragem para tentar, capacidade para aprender e humildade para pedir ajuda.
+        </p>
+    </section>
+    <section class="chamada">
+        <h2>🐙 Vem fazer parte da PraticaTech!</h2>
+        <p>
+            Você quer aprender do zero? Quer aprender algo novo?
+            Já sabe e quer ensinar outras pessoas? Tem um projeto ou desafio para compartilhar?
+        </p>
+        <p style="margin-top:10px;"><strong>Então este espaço também é seu.</strong></p>
+        <a href="https://chat.whatsapp.com/FX86mNInuHtGUtDd3uiznu" target="_blank" class="botao-principal">
+            Entrar na Comunidade 💬
+        </a>
+    </section>
+</main>
+<footer class="footer">
+    <p class="footer-dominio">🌐 praticatech.tec.br</p>
+    <p>© 2026 PraticaTech — Da sala de aula para a prática 🚀</p>
+    <p class="footer-data" id="data-atual"></p>
+    </footer>
+<script>
+    const dataRodape = document.getElementById('data-atual');
+    const opcoesData = { year: 'numeric', month: 'long', day: 'numeric' };
+    dataRodape.textContent = 'Desde 2026 — ' + new Date().toLocaleDateString('pt-BR', opcoesData);
+</script>
+<style>
+    :root {
+        --primaria: #0066ff;
+        --destaque: #a3e635;
+        --fundo-escuro: #030a16;
+    }
+    .botao-fale-conosco {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, var(--primaria), var(--destaque));
+        color: white;
+        border: none;
+        padding: 14px 24px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0, 102, 255, 0.4);
+        z-index: 9999;
+        transition: transform 0.3s ease;
+    }
+    .botao-fale-conosco:hover {
+        transform: scale(1.05);
+    }
+    .caixa-duvidas {
+        display: none;
+        position: fixed;
+        bottom: 90px;
+        right: 30px;
+        width: 340px;
+        background: #0a1525;
+        border: 1px solid rgba(163, 230, 53, 0.3);
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+    .caixa-duvidas.aberta {
+        display: block;
+    }
+    .caixa-titulo {
+        color: var(--destaque);
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .botao-fechar {
+        background: none;
+        border: none;
+        color: #9ca3af;
+        font-size: 20px;
+        cursor: pointer;
+        line-height: 1;
+    }
+    .caixa-input, .caixa-texto {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: white;
+        font-size: 14px;
+    }
+    .caixa-texto {
+        min-height: 100px;
+        resize: none;
+    }
+    .caixa-input::placeholder, .caixa-texto::placeholder {
+        color: #6b7280;
+    }
+    .caixa-botao-enviar {
+        width: 100%;
+        background: linear-gradient(135deg, var(--primaria), var(--destaque));
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 15px;
+    }
+    .mensagem-confirmacao {
+        color: var(--destaque);
+        margin-top: 12px;
+        display: none;
+    }
+</style>
+<button class="botao-fale-conosco" onclick="alternarCaixa()">💬 Fale Conosco</button>
+<div class="caixa-duvidas" id="caixaDuvidas">
+    <div class="caixa-titulo">
+        Tem dúvida?
+        <button class="botao-fechar" onclick="alternarCaixa()">&times;</button>
+    </div>
+    <input type="text" class="caixa-input" id="nomeContato" placeholder="Seu nome">
+    <textarea class="caixa-texto" id="mensagemContato" placeholder="Escreva sua mensagem..."></textarea>
+    <button class="caixa-botao-enviar" onclick="enviarMensagem()">Enviar pelo WhatsApp</button>
+    <div class="mensagem-confirmacao" id="confirmacao">✅ Mensagem enviada!</div>
+</div>
+<script>
+function alternarCaixa() {
+    const caixa = document.getElementById('caixaDuvidas');
+    caixa.classList.toggle('aberta');
+}
+function enviarMensagem() {
+    const nome = document.getElementById('nomeContato').value || 'Anônimo';
+    const mensagem = document.getElementById('mensagemContato').value;
+    if (!mensagem.trim()) {
+        alert('Escreva sua mensagem!');
+        return;
+    }
+    const numero = '5517997749639';
+    const texto = encodeURIComponent(
+        `Olá! Sou ${nome}.\n\nMinha mensagem:\n${mensagem}`
+    );
+    window.open(`https://wa.me/${numero}?text=${texto}`, '_blank');
+    document.getElementById('confirmacao').style.display = 'block';
+    document.getElementById('nomeContato').value = '';
+    document.getElementById('mensagemContato').value = '';
+    setTimeout(() => {
+        alternarCaixa();
+        document.getElementById('confirmacao').style.display = 'none';
+    }, 2000);
+}
+</script>
+</body>
+</html>

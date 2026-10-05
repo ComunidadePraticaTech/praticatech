@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canais — PraticaTech | praticatech.tec.br</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primaria: #0066ff;
+            --destaque: #a3e635;
+            --fundo-escuro: #030a16;
+            --texto-claro: #f3f4f6;
+            --texto-cinza: #9ca3af;
+        }
+        body {
+            background-color: var(--fundo-escuro);
+            color: var(--texto-claro);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: rgba(3, 10, 22, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 102, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-img {
+            height: 42px;
+            width: 42px;
+            border-radius: 8px;
+            background: #0066ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+        }
+        .logo-texto {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        .nav-links a {
+            color: var(--texto-cinza);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover,
+        .nav-links a.ativo {
+            color: var(--destaque);
+        }
+        .nav-acoes { display: flex; gap: 12px; }
+        .btn-entrar {
+            color: var(--texto-claro);
+            background: transparent;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .btn-participar {
+            background: linear-gradient(135deg, var(--primaria), var(--destaque));
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .conteudo {
+            padding: 60px 8%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .cabecalho-pagina {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        .mascote-pequeno {
+            max-width: 110px;
+            height: auto;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+        .titulo-principal {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .subtitulo {
+            color: var(--texto-cinza);
+            font-size: 1.05rem;
+        }
+        .canais-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+        .canal-card {
+            background-color: rgba(10,20,40,0.6);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 30px 25px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+        }
+        .canal-card:hover {
+            transform: translateY(-6px);
+        }
+        .canal-card.whatsapp:hover {
+            border-color: #25D366;
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.2);
+        }
+        .canal-card.linkedin:hover {
+            border-color: #0A66C2;
+            box-shadow: 0 12px 30px rgba(10, 102, 194, 0.2);
+        }
+        .canal-card.instagram:hover {
+            border-color: #E4405F;
+            box-shadow: 0 12px 30px rgba(228, 64, 95, 0.2);
+        }
+        .canal-card.facebook:hover {
+            border-color: #1877F2;
+            box-shadow: 0 12px 30px rgba(24, 119, 242, 0.2);
+        }
+        .canal-card.email:hover {
+            border-color: #EA4335;
+            box-shadow: 0 12px 30px rgba(234, 67, 53, 0.2);
+        }
+        .canal-icone {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+        .canal-icone img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .canal-card:hover .canal-icone {
+            transform: scale(1.15);
+        }
+        .canal-nome {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .canal-desc {
+            font-size: 0.85rem;
+            color: var(--texto-cinza);
+            line-height: 1.4;
+        }
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #112d5d;
+            color: var(--texto-cinza);
+            font-size: 0.9rem;
+            margin-top: 60px;
+        }
+        .footer-dominio {
+            color: var(--destaque);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(163, 230, 53, 0.5);
+        }
+        .footer-data {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: rgba(156, 163, 175, 0.6);
+        }
+        .botao-fale-conosco {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primaria), var(--destaque));
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.4);
+            z-index: 9999;
+        }
+        .caixa-duvidas {
+            display: none;
+            position: fixed;
+            bottom: 90px;
+            right: 30px;
+            width: 340px;
+            background: #0a1525;
+            border: 1px solid rgba(163, 230, 53, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            z-index: 9998;
+        }
+        .caixa-duvidas.aberta { display: block; }
+        .caixa-input, .caixa-texto {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: white;
+        }
+        .caixa-botao-enviar {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primaria), var(--destaque));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+        <div class="logo-img">P</div>
+        <span class="logo-texto">PraticaTech</span>
+    </a>
+     <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="comunidade.html">Comunidade</a></li>
+        <li><a href="canais.html" class="ativo">Canais</a></li>
+        <li><a href="agenda.html">Agenda</a></li>
+        <li><a href="encontros.html">Encontros</a></li>
+        <li><a href="entretenimento.html">Entretenimento</a></li>
+        <li><a href="pratic.html">🐙 Pratic</a></li>
+    </ul>
+    <div class="nav-acoes">
+        <a href="https://wa.me/5517997749639" class="btn-entrar" target="_blank">Entrar</a>
+        <a href="https://wa.me/5517997749639" class="btn-participar" target="_blank">Participar</a>
+    </div>
+</nav>
+<main class="conteudo">
+    <div class="cabecalho-pagina">
+        <img src="mascote_canais.png" alt="Mascote — Canais" class="mascote-pequeno">
+        <div>
+            <h1 class="titulo-principal">Nossos Canais</h1>
+            <p class="subtitulo">Clique e participe da comunidade! 🐙</p>
+        </div>
+    </div>
+    
+    <div class="canais-grid">
+        <!-- WhatsApp -->
+        <a href="https://chat.whatsapp.com/FX86mNInuHtGUtDd3uiznu" target="_blank" class="canal-card whatsapp">
+            <div class="canal-icone">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+            </div>
+            <h3 class="canal-nome">WhatsApp</h3>
+            <p class="canal-desc">Grupo principal — entre agora!</p>
+        </a>
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/comunidade-praticatech-80817b440/" target="_blank" class="canal-card linkedin">
+            <div class="canal-icone">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn">
+            </div>
+            <h3 class="canal-nome">LinkedIn</h3>
+            <p class="canal-desc">Rede profissional e vagas</p>
+        </a>
+        <!-- Instagram — CORRIGIDO -->
+        <a href="https://www.instagram.com/comunidadepraticatech" target="_blank" class="canal-card instagram">
+            <div class="canal-icone">
+                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+            </div>
+            <h3 class="canal-nome">Instagram</h3>
+            <p class="canal-desc">Conteúdo e novidades diárias</p>
+        </a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/share/1Bw58RDbkq/" target="_blank" class="canal-card facebook">
+            <div class="canal-icone">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" alt="Facebook">
+            </div>
+            <h3 class="canal-nome">Facebook</h3>
+            <p class="canal-desc">Página oficial da comunidade</p>
+        </a>
+        <!-- E-mail -->
+        <a href="mailto:comunidadepraticatech@gmail.com" class="canal-card email">
+            <div class="canal-icone">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="E-mail">
+            </div>
+            <h3 class="canal-nome">E-mail</h3>
+            <p class="canal-desc">comunidadepraticatech@gmail.com</p>
+        </a>
+    </div>
+</main>
+
+<button class="botao-fale-conosco" onclick="document.getElementById('caixaDuvidas').classList.toggle('aberta')">💬 Fale Conosco</button>
+<div class="caixa-duvidas" id="caixaDuvidas">
+    <h3 style="color: var(--destaque); margin-bottom: 15px;">Tem dúvida?</h3>
+    <input type="text" class="caixa-input" id="nome" placeholder="Seu nome">
+    <textarea class="caixa-texto" id="msg" placeholder="Sua mensagem..."></textarea>
+    <button class="caixa-botao-enviar" onclick="enviar()">Enviar pelo WhatsApp</button>
+</div>
+
+<script>
+function enviar() {
+    const nome = document.getElementById('nome').value || 'Anônimo';
+    const msg = document.getElementById('msg').value;
+    if (!msg.trim()) { alert('Escreva sua mensagem!'); return; }
+    const texto = encodeURIComponent(`Olá! Sou ${nome}.\n\n${msg}`);
+    window.open(`https://wa.me/5517997749639?text=${texto}`, '_blank');
+    document.getElementById('nome').value = '';
+    document.getElementById('msg').value = '';
+    document.getElementById('caixaDuvidas').classList.remove('aberta');
+}
+</script>
+
+<footer class="footer">
+    <p class="footer-dominio">🌐 praticatech.tec.br</p>
+    <p>© 2026 PraticaTech — Da sala de aula para a prática 🚀</p>
+    <p class="footer-data">Desde 2026 — São José do Rio Preto / SP</p>
+   </footer>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encontros — PraticaTech | praticatech.tec.br</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primaria: #0066ff;
+            --destaque: #a3e635;
+            --fundo-escuro: #030a16;
+            --texto-claro: #f3f4f6;
+            --texto-cinza: #9ca3af;
+            --card-fundo: rgba(10, 20, 40, 0.6);
+        }
+        body {
+            background-color: var(--fundo-escuro);
+            color: var(--texto-claro);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: rgba(3, 10, 22, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 102, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-img {
+            height: 42px;
+            width: 42px;
+            border-radius: 8px;
+            background: #0066ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+        }
+        .logo-texto {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        .nav-links a {
+            color: var(--texto-cinza);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover,
+        .nav-links a.ativo {
+            color: var(--destaque);
+        }
+        .nav-acoes { display: flex; gap: 12px; }
+        .btn-entrar {
+            color: var(--texto-claro);
+            background: transparent;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .btn-participar {
+            background: linear-gradient(135deg, var(--primaria), var(--destaque));
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .conteudo {
+            padding: 60px 8%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .cabecalho {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .titulo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 10px;
+        }
+        .subtitulo {
+            color: var(--destaque);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .categoria {
+            margin-bottom: 50px;
+        }
+        .cat-titulo {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .grade {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .encontro {
+            background: var(--card-fundo);
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .encontro:hover {
+            border-color: var(--destaque);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(163, 230, 53, 0.12);
+        }
+        .encontro-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        .encontro-corpo {
+            padding: 20px;
+        }
+        .encontro-tipo {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .tipo-feira {
+            background: rgba(0, 102, 255, 0.2);
+            color: #60a5fa;
+        }
+        .tipo-seminario {
+            background: rgba(163, 230, 53, 0.2);
+            color: var(--destaque);
+        }
+        .tipo-faculdade {
+            background: rgba(168, 85, 247, 0.2);
+            color: #c084fc;
+        }
+        .encontro-nome {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .encontro-local {
+            font-size: 0.9rem;
+            color: var(--texto-cinza);
+            margin-bottom: 6px;
+        }
+        .encontro-data {
+            font-size: 0.9rem;
+            color: #e5e7eb;
+            margin-bottom: 10px;
+        }
+        .encontro-desc {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            line-height: 1.5;
+        }
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #112d5d;
+            color: var(--texto-cinza);
+            font-size: 0.9rem;
+            margin-top: 60px;
+        }
+        /* ✅ DOMÍNIO BRILHANTE */
+        .footer-dominio {
+            color: var(--destaque);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(163, 230, 53, 0.5);
+        }
+        .footer-data {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: rgba(156, 163, 175, 0.6);
+        }
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; text-align: center; }
+            .nav-links { justify-content: center; }
+            .nav-acoes { margin-top: 10px; }
+            .grade { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+        <div class="logo-img">P</div>
+        <span class="logo-texto">PraticaTech</span>
+    </a>
+     <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="comunidade.html">Comunidade</a></li>
+        <li><a href="canais.html">Canais</a></li>
+        <li><a href="agenda.html">Agenda</a></li>
+        <li><a href="encontros.html" class="ativo">Encontros</a></li>
+        <li><a href="entretenimento.html">Entretenimento</a></li>
+        <li><a href="pratic.html">🐙 Pratic</a></li>
+    </ul>
+    <div class="nav-acoes">
+        <a href="https://wa.me/5517997749639" class="btn-entrar" target="_blank">Entrar</a>
+        <a href="https://wa.me/5517997749639" class="btn-participar" target="_blank">Participar</a>
+    </div>
+</nav>
+<main class="conteudo">
+    <header class="cabecalho">
+        <h1 class="titulo">📍 Encontros da Comunidade</h1>
+        <p class="subtitulo">Onde a PraticaTech aparece e conecta com o mundo real — feiras, seminários e instituições de ensino.</p>
+    </header>
+    <section class="categoria">
+        <h2 class="cat-titulo">🏪 Feiras</h2>
+        <div class="grade">
+            <div class="encontro">
+                <img src="img/auditorio1.jpg" alt="Feira de Tecnologia" class="encontro-img">
+                <div class="encontro-corpo">
+                    <span class="encontro-tipo tipo-feira">Feira</span>
+                    <h3 class="encontro-nome">Feira de Tecnologia — São José do Rio Preto</h3>
+                    <p class="encontro-local">📍 Expo Center</p>
+                    <p class="encontro-data">📅 A definir</p>
+                    <p class="encontro-desc">Espaço para apresentar projetos e conectar com empresas e visitantes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="categoria">
+        <h2 class="cat-titulo">🎤 Seminários & Palestras</h2>
+        <div class="grade">
+            <div class="encontro">
+                <img src="img/robotica.jpeg" alt="Seminário de Tecnologia" class="encontro-img">
+                <div class="encontro-corpo">
+                    <span class="encontro-tipo tipo-seminario">Seminário</span>
+                    <h3 class="encontro-nome">Tecnologia e Mercado de Trabalho</h3>
+                    <p class="encontro-local">📍 A definir</p>
+                    <p class="encontro-data">📅 A definir</p>
+                    <p class="encontro-desc">Diálogo entre profissionais, estudantes e comunidade.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="categoria">
+        <h2 class="cat-titulo">🎓 Instituições de Ensino</h2>
+        <div class="grade">
+            <div class="encontro">
+                <img src="img/roboquadrupede.jpg" alt="Visita a faculdade" class="encontro-img">
+                <div class="encontro-corpo">
+                    <span class="encontro-tipo tipo-faculdade">Faculdade</span>
+                    <h3 class="encontro-nome">Visita e Apresentação — Fatec / UNIRP</h3>
+                    <p class="encontro-local">📍 São José do Rio Preto</p>
+                    <p class="encontro-data">📅 A definir</p>
+                    <p class="encontro-desc">Levar a PraticaTech para dentro das salas de aula.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="footer">
+    <p class="footer-dominio">🌐 praticatech.tec.br</p>
+    <p>© 2026 PraticaTech — Da sala de aula para a prática 🚀</p>
+    <p class="footer-data" id="data-atual"></p>
+   </footer>
+<script>
+    const dataRodape = document.getElementById('data-atual');
+    if (dataRodape) {
+        const opcoesData = { year: 'numeric', month: 'long', day: 'numeric' };
+        dataRodape.textContent = 'Desde 2026 — ' + new Date().toLocaleDateString('pt-BR', opcoesData);
+    }
+</script>
+<style>
+    :root {
+        --primaria: #0066ff;
+        --destaque: #a3e635;
+        --fundo-escuro: #030a16;
+    }
+    .botao-fale-conosco {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, var(--primaria), var(--destaque));
+        color: white;
+        border: none;
+        padding: 14px 24px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0, 102, 255, 0.4);
+        z-index: 9999;
+        transition: transform 0.3s ease;
+    }
+    .botao-fale-conosco:hover { transform: scale(1.05); }
+    .caixa-duvidas {
+        display: none;
+        position: fixed;
+        bottom: 90px;
+        right: 30px;
+        width: 340px;
+        background: #0a1525;
+        border: 1px solid rgba(163, 230, 53, 0.3);
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+    .caixa-duvidas.aberta { display: block; }
+    .caixa-titulo {
+        color: var(--destaque);
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .botao-fechar {
+        background: none;
+        border: none;
+        color: #9ca3af;
+        font-size: 20px;
+        cursor: pointer;
+        line-height: 1;
+    }
+    .caixa-input, .caixa-texto {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: white;
+        font-size: 14px;
+    }
+    .caixa-texto {
+        min-height: 100px;
+        resize: none;
+    }
+    .caixa-input::placeholder, .caixa-texto::placeholder { color: #6b7280; }
+    .caixa-botao-enviar {
+        width: 100%;
+        background: linear-gradient(135deg, var(--primaria), var(--destaque));
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 15px;
+    }
+    .mensagem-confirmacao {
+        color: var(--destaque);
+        margin-top: 12px;
+        display: none;
+    }
+</style>
+<button class="botao-fale-conosco" onclick="alternarCaixa()">💬 Fale Conosco</button>
+<div class="caixa-duvidas" id="caixaDuvidas">
+    <div class="caixa-titulo">
+        Tem dúvida?
+        <button class="botao-fechar" onclick="alternarCaixa()">&times;</button>
+    </div>
+    <input type="text" class="caixa-input" id="nomeContato" placeholder="Seu nome">
+    <textarea class="caixa-texto" id="mensagemContato" placeholder="Escreva sua mensagem..."></textarea>
+    <button class="caixa-botao-enviar" onclick="enviarMensagem()">Enviar pelo WhatsApp</button>
+    <div class="mensagem-confirmacao" id="confirmacao">✅ Mensagem enviada!</div>
+</div>
+<script>
+function alternarCaixa() {
+    const caixa = document.getElementById('caixaDuvidas');
+    caixa.classList.toggle('aberta');
+}
+function enviarMensagem() {
+    const nome = document.getElementById('nomeContato').value || 'Anônimo';
+    const mensagem = document.getElementById('mensagemContato').value;
+    if (!mensagem.trim()) { alert('Escreva sua mensagem!'); return; }
+    const numero = '5517997749639';
+    const texto = encodeURIComponent(`Olá! Sou ${nome}.\n\nMinha mensagem:\n${mensagem}`);
+    window.open(`https://wa.me/${numero}?text=${texto}`, '_blank');
+    document.getElementById('confirmacao').style.display = 'block';
+    document.getElementById('nomeContato').value = '';
+    document.getElementById('mensagemContato').value = '';
+    setTimeout(() => {
+        alternarCaixa();
+        document.getElementById('confirmacao').style.display = 'none';
+    }, 2000);
+}
+</script>
+</body>
+</html>

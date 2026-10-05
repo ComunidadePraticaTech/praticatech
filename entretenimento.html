@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entretenimento — PraticaTech | praticatech.tec.br</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primaria: #0066ff;
+            --destaque: #a3e635;
+            --fundo-escuro: #030a16;
+            --texto-claro: #f3f4f6;
+            --texto-cinza: #9ca3af;
+            --jogos-cor: #ff3366;
+            --musica-cor: #ff9900;
+        }
+        body {
+            background-color: var(--fundo-escuro);
+            color: var(--texto-claro);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: rgba(3, 10, 22, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 102, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .logo-img {
+            height: 42px;
+            width: 42px;
+            border-radius: 8px;
+            background: #0066ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+        }
+        .logo-texto {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        .nav-links a {
+            color: var(--texto-cinza);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover,
+        .nav-links a.ativo {
+            color: var(--destaque);
+        }
+        .nav-acoes { display: flex; gap: 12px; }
+        .btn-entrar {
+            color: var(--texto-claro);
+            background: transparent;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .btn-participar {
+            background: linear-gradient(135deg, var(--primaria), var(--destaque));
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .conteudo {
+            padding: 40px 8% 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .cabecalho-pagina {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            padding: 10px 0 20px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        .mascote-pequeno {
+            max-width: 110px;
+            height: auto;
+            border-radius: 50%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(163,230,53,0.25));
+        }
+        .titulo-principal {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            margin-bottom: 8px;
+        }
+        .subtitulo {
+            color: var(--texto-cinza);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .secao-bloco { margin-bottom: 50px; }
+        .secao-titulo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .jogos-titulo { color: var(--jogos-cor); }
+        .musica-titulo { color: var(--musica-cor); }
+        .secao-desc {
+            text-align: center;
+            color: var(--texto-cinza);
+            margin-bottom: 30px;
+        }
+        .cards-grade {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: rgba(10, 20, 40, 0.5);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .card-jogos { border-color: rgba(255,51,102,0.25); }
+        .card-jogos:hover { border-color: var(--jogos-cor); box-shadow: 0 8px 20px rgba(255,51,102,0.15); }
+        .card-musica { border-color: rgba(255,153,0,0.25); }
+        .card-musica:hover { border-color: var(--musica-cor); box-shadow: 0 8px 20px rgba(255,153,0,0.15); }
+        .card-icone {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        .card-nome { font-weight: 700; font-size: 1.1rem; margin-bottom: 5px; }
+        .card-desc { font-size: 0.85rem; color: var(--texto-cinza); }
+        .divisor {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            margin: 10px 0 40px;
+        }
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #112d5d;
+            color: var(--texto-cinza);
+            font-size: 0.9rem;
+            margin-top: 60px;
+        }
+        /* ✅ DOMÍNIO BRILHANTE */
+        .footer-dominio {
+            color: var(--destaque);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(163, 230, 53, 0.5);
+        }
+        .footer-data {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: rgba(156, 163, 175, 0.6);
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+        <div class="logo-img">P</div>
+        <span class="logo-texto">PraticaTech</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="comunidade.html">Comunidade</a></li>
+        <li><a href="canais.html">Canais</a></li>
+        <li><a href="agenda.html">Agenda</a></li>
+        <li><a href="encontros.html">Encontros</a></li>
+        <li><a href="entretenimento.html" class="ativo">Entretenimento</a></li>
+        <li><a href="pratic.html">🐙 Pratic</a></li>
+    </ul>
+    <div class="nav-acoes">
+        <a href="https://wa.me/5517997749639" class="btn-entrar" target="_blank">Entrar</a>
+        <a href="https://wa.me/5517997749639" class="btn-participar" target="_blank">Participar</a>
+    </div>
+</nav>
+<main class="conteudo">
+    <header class="cabecalho-pagina">
+        <img src="mascote_entretenimento.png" alt="Mascote — Entretenimento" class="mascote-pequeno">
+        <div>
+            <h1 class="titulo-principal">🎮 Entretenimento PraticaTech 🎵</h1>
+            <p class="subtitulo">Recarregar as energias também faz parte do crescimento! 🐙</p>
+        </div>
+    </header>
+
+    <section class="secao-bloco">
+        <h2 class="secao-titulo jogos-titulo">🎮 Jogos — Para a Galera</h2>
+        <p class="secao-desc">Clique no jogo → abre em aba nova. Para voltar, clique na aba "Entretenimento" em cima! 👆</p>
+        
+        <div class="cards-grade">
+            <a href="https://www.roblox.com" target="_blank" rel="noopener" class="card card-jogos">
+                <div class="card-icone">🏗️</div>
+                <h3 class="card-nome">Roblox</h3>
+                <p class="card-desc">Abre em aba nova ↗</p>
+            </a>
+            <a href="https://www.minecraft.net" target="_blank" rel="noopener" class="card card-jogos">
+                <div class="card-icone">🧱</div>
+                <h3 class="card-nome">Minecraft</h3>
+                <p class="card-desc">Abre em aba nova ↗</p>
+            </a>
+            <a href="https://store.steampowered.com" target="_blank" rel="noopener" class="card card-jogos">
+                <div class="card-icone">🎯</div>
+                <h3 class="card-nome">Steam</h3>
+                <p class="card-desc">Abre em aba nova ↗</p>
+            </a>
+        </div>
+    </section>
+
+    <div class="divisor"></div>
+
+    <section class="secao-bloco">
+        <h2 class="secao-titulo musica-titulo">🎵 Música — Para Ouvir e Curtir</h2>
+        <p class="secao-desc">Clique no site → abre em aba nova. Para voltar, é só clicar na aba de Entretenimento! 👆</p>
+        
+        <div class="cards-grade">
+            <a href="https://open.spotify.com" target="_blank" rel="noopener" class="card card-musica">
+                <div class="card-icone">🎧</div>
+                <h3 class="card-nome">Spotify</h3>
+                <p class="card-desc">Abre em aba nova ↗</p>
+            </a>
+            <a href="https://music.youtube.com/" target="_blank" rel="noopener" class="card card-musica">
+                <div class="card-icone">▶️</div>
+                <h3 class="card-nome">YouTube Music</h3>
+                <p class="card-desc">Abre em aba nova ↗</p>
+            </a>
+            <a href="https://www.palcomp3.com.br" target="_blank" rel="noopener" class="card card-musica">
+                <div class="card-icone">🎤</div>
+                <h3 class="card-nome">Palco MP3</h3>
+                <p class="card-desc">Abre em aba nova ↗</p>
+            </a>
+            <a href="https://www.suamusica.com.br" target="_blank" rel="noopener" class="card card-musica">
+                <div class="card-icone">🎶</div>
+                <h3 class="card-nome">Sua Música</h3>
+                <p class="card-desc">Abre em aba nova ↗</p>
+            </a>
+        </div>
+    </section>
+</main>
+<footer class="footer">
+    <p class="footer-dominio">🌐 praticatech.tec.br</p>
+    <p>© 2026 PraticaTech — Da sala de aula para a prática 🚀</p>
+    <p class="footer-data" id="data-atual"></p>
+   </footer>
+<script>
+    const dataRodape = document.getElementById('data-atual');
+    const opcoesData = { year: 'numeric', month: 'long', day: 'numeric' };
+    dataRodape.textContent = 'Desde 2026 — ' + new Date().toLocaleDateString('pt-BR', opcoesData);
+</script>
+<style>
+    :root {
+        --primaria: #0066ff;
+        --destaque: #a3e635;
+        --fundo-escuro: #030a16;
+    }
+    .botao-fale-conosco {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, var(--primaria), var(--destaque));
+        color: white;
+        border: none;
+        padding: 14px 24px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0, 102, 255, 0.4);
+        z-index: 9999;
+        transition: transform 0.3s ease;
+    }
+    .botao-fale-conosco:hover { transform: scale(1.05); }
+    .caixa-duvidas {
+        display: none;
+        position: fixed;
+        bottom: 90px;
+        right: 30px;
+        width: 340px;
+        background: #0a1525;
+        border: 1px solid rgba(163, 230, 53, 0.3);
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+    .caixa-duvidas.aberta { display: block; }
+    .caixa-titulo {
+        color: var(--destaque);
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .botao-fechar {
+        background: none;
+        border: none;
+        color: #9ca3af;
+        font-size: 20px;
+        cursor: pointer;
+        line-height: 1;
+    }
+    .caixa-input, .caixa-texto {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: white;
+        font-size: 14px;
+    }
+    .caixa-texto {
+        min-height: 100px;
+        resize: none;
+    }
+    .caixa-input::placeholder, .caixa-texto::placeholder { color: #6b7280; }
+    .caixa-botao-enviar {
+        width: 100%;
+        background: linear-gradient(135deg, var(--primaria), var(--destaque));
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 15px;
+    }
+    .mensagem-confirmacao {
+        color: var(--destaque);
+        margin-top: 12px;
+        display: none;
+    }
+</style>
+<button class="botao-fale-conosco" onclick="alternarCaixa()">💬 Fale Conosco</button>
+<div class="caixa-duvidas" id="caixaDuvidas">
+    <div class="caixa-titulo">
+        Tem dúvida?
+        <button class="botao-fechar" onclick="alternarCaixa()">&times;</button>
+    </div>
+    <input type="text" class="caixa-input" id="nomeContato" placeholder="Seu nome">
+    <textarea class="caixa-texto" id="mensagemContato" placeholder="Escreva sua mensagem..."></textarea>
+    <button class="caixa-botao-enviar" onclick="enviarMensagem()">Enviar pelo WhatsApp</button>
+    <div class="mensagem-confirmacao" id="confirmacao">✅ Mensagem enviada!</div>
+</div>
+<script>
+function alternarCaixa() {
+    const caixa = document.getElementById('caixaDuvidas');
+    caixa.classList.toggle('aberta');
+}
+function enviarMensagem() {
+    const nome = document.getElementById('nomeContato').value || 'Anônimo';
+    const mensagem = document.getElementById('mensagemContato').value;
+    if (!mensagem.trim()) { alert('Escreva sua mensagem!'); return; }
+    const numero = '5517997749639';
+    const texto = encodeURIComponent(`Olá! Sou ${nome}.\n\nMinha mensagem:\n${mensagem}`);
+    window.open(`https://wa.me/${numero}?text=${texto}`, '_blank');
+    document.getElementById('confirmacao').style.display = 'block';
+    document.getElementById('nomeContato').value = '';
+    document.getElementById('mensagemContato').value = '';
+    setTimeout(() => {
+        alternarCaixa();
+        document.getElementById('confirmacao').style.display = 'none';
+    }, 2000);
+}
+</script>
+</body>
+</html>
